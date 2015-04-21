@@ -31,7 +31,7 @@ userLogin : function(req, res){
                   }); 
                 },
 /* User signout */
-userSignout : function(req, res) {
+userSignout: function(req, res) {
     jwt.verify(req.headers.auth, "TOPSECRETTTTT", function(err, payload) {
       if(err) {
         res.json({Error:"Uknown user cannot be signed out"});
