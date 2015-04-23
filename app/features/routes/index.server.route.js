@@ -7,8 +7,8 @@ module.exports = function(app) {
   app.route('/users/signout').post(controllerData.userSignout);
   app.route('/users/oneuser').post(controllerData.getOneUser);
   app.route('/users/delete').delete(controllerData.userDelete);
-  app.route('/user/update').put(controllerData.modifyUserDetails);
+  app.route('/users/update').put(controllerData.setuser);
   // app.route('users/delete').delete(controllerData.UserDelete);
   app.route('/users/createBadge').post(controllerData.createBadgeForUser);
-  app.route('/users/update').put(controllerData.modifyUserDetails);
+  
 };  
