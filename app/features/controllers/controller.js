@@ -1,11 +1,11 @@
 var request = require('request');
 var jwt = require('jsonwebtoken');
-var config = require('../../../config/config')();
+var config = require('../../../config/env/config')();
 module.exports = {
     /* User initialised */
 userSignup: function(req, res, body) {
   request.post({
-    url:"http://localhost:4000/users/signup",
+    url:config.development.url.userService+"/users/signup",
       form: req.body
     },
       function(err, httpResponse, body) {
@@ -22,7 +22,7 @@ userSignup: function(req, res, body) {
     /* User login */
 userLogin: function(req, res) {
   request.post({
-  url: config.url+'/users/login',
+  url: config.development.url.userService+"/users/login",
       form: req.body
       }, function(err, httpResponse, body) {
         if (err) {
@@ -35,37 +35,62 @@ userLogin: function(req, res) {
          },
     /* User signout */
 userSignout: function(req, res) {
-  request.post({
-  url: config.development.userSeviceUrl+'users/verify',
-      form: {
-      auth: req.body.auth
-      }
-  }, function(error, httpResponse, body) {
-      if (error) {
-        res.json(error);
+request.post({
+  url: config.development.url.userService+"/users/signout",
+      form: req.body
+      }, function(err, httpResponse, body) {
+        if (err) {
+          console.log(err);
         } 
         else {
-            request.post({
-            url: config.development.userSeviceUrl+'/users/signout',
-            form: {
-            username: body.username
-            }
-          }, function(err, httpResponse, body) {
-            if (err) {
-            console.log(err);
-            } 
-            else {
-            var data = JSON.parse(body);
-            res.json(data);
-            }
-          });
-        }
-      });
+              res.json(body);
+              }
+           });
+  // request.post({
+  // url: config.development.url.userService+"users/verify",
+  //     form: {
+  //     auth: req.body.auth
+  //     }
+  // }, function(error, httpResponse, body) {
+  //     if (error) {
+  //       res.json(error);
+  //       } 
+  //       else {
+  //           request.post({
+  //           url: config.development.url.userService+"/users/signout",
+  //           form: {
+  //           username: body.username
+  //           }
+  //         }, function(err, httpResponse, body) {
+  //           if (err) {
+  //           console.log(err);
+  //           } 
+  //           else {
+  //           var data = JSON.parse(body);
+  //           res.json(data);
+  //           }
+  //         });
+  //       }
+  //     });
     },
-
+getOneUser:function(req, res) {
+  request.post({
+    url: config.development.url.userService+"/users/username",
+    form:{
+      username: req.body.username
+    }
+  },function(err, httpResponse, body) {
+      if (err) {
+        console.log(err);
+        }   else {
+            var data = JSON.parse(body);
+          res.json(data);
+          }
+        });
+      },
 getAllUsers: function(req, res) {
   request.get({
-    url: config.development.userSeviceUrl+'/users/signup'
+    url: config.development.url.userService+"/users/signup"
   },
      function(err, httpResponse, body) {
       if (err) {
@@ -79,7 +104,7 @@ getAllUsers: function(req, res) {
 
 modifyUserDetails: function(req, res) {
   request.post({
-    url: config.development.userSeviceUrl+'/users/verify',
+    url: config.development.url.userService+"/users/verify",
     form: {
       auth: req.body.auth
     }
@@ -90,7 +115,7 @@ modifyUserDetails: function(req, res) {
         else {
         req.body.oldname = body.username;
         request.put({
-        url: config.development.userSeviceUrl+'/users/edit',
+        url: config.development.url.userService+"/users/edit",
         form: {"req.body.oldname":body.username}
         }, function(err, httpResponse, body) {
           if (err) {
@@ -116,7 +141,7 @@ modifyUserDetails: function(req, res) {
   /* delete user*/
 userDelete: function(req, res) {
   request.post({
-    url: config.development.userSeviceUrl+'/users/verify',
+    url: config.development.url.userService+'/users/verify',
       form: {
       auth: req.body.auth
       }
@@ -125,7 +150,7 @@ userDelete: function(req, res) {
         res.json(error);
       } else {
         request.del({
-        url: config.development.userSeviceUrl+'/users/delete',
+        url: config.development.url.userService+'/users/delete',
         form: {
           username: body.username
         }
@@ -134,7 +159,7 @@ userDelete: function(req, res) {
             console.log(err);
          } else {
                 request.del({
-                url: config.development.badgeServiceUrl+'/users/delete',
+                url: config.development.url.badgeService+'/users/delete',
                 form: {
                 badge: req.body.badge_title,
                 badge_type: req.body.badge_type,
@@ -158,7 +183,7 @@ userDelete: function(req, res) {
           //creating a new badge
 createBadgeForUser: function(req, res) {
   request.post({
-    url: config.development.userSeviceUrl+'/users/verify',
+    url: config.development.url.userService+'/users/verify',
     form: {
       auth: req.body.auth
     }
@@ -168,7 +193,7 @@ createBadgeForUser: function(req, res) {
       } else {
               console.log(body);
               request.post({
-              url: badgeServiceUrl+'/users/',
+              url: config.development.url.badgeService+'/users/',
               form: {
               badge_title: req.body.badge_title,
               badge_type: req.body.badge_type,

@@ -5,7 +5,7 @@ module.exports = function(app) {
   app.route('/users/login').post(controllerData.userLogin);
   //app.route('/users/:username').get(controllerData.getUserByName);
   app.route('/users/signout').post(controllerData.userSignout);
-  // app.route('/users/edit').put(controllerData.updateOneUser);
+  app.route('/users/oneuser').post(controllerData.getOneUser);
   app.route('/users/delete').delete(controllerData.userDelete);
   app.route('/user/update').put(controllerData.modifyUserDetails);
   // app.route('users/delete').delete(controllerData.UserDelete);
