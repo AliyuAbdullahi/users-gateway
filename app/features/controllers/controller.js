@@ -5,7 +5,7 @@ module.exports = {
   /* User initialised */
 userSignup: function(req, res, body) {
     request.post({
-      url: config.development.url.userService + "/users/signup",
+      url: config.production.url.userService + "/users/signup",
          form: req.body
       },
       function(err, httpResponse, body) {
@@ -22,7 +22,7 @@ userSignup: function(req, res, body) {
   /* User login */
 userLogin: function(req, res) {
     request.post({
-      url: config.development.url.userService + "/users/login",
+      url: config.production.url.userService + "/users/login",
       form: req.body
     }, function(err, httpResponse, body) {
       if (err) {
@@ -35,7 +35,7 @@ userLogin: function(req, res) {
   /* User signout */
 userSignout: function(req, res) {
     request.post({
-      url: config.development.url.userService + "/users/signout",
+      url: config.production.url.userService + "/users/signout",
       form: req.body
     }, function(err, httpResponse, body) {
       if (err) {
@@ -48,7 +48,7 @@ userSignout: function(req, res) {
   /*Obtain one user*/
 getOneUser: function(req, res) {
     request.post({
-      url: config.development.url.userService + "/users/username",
+      url: config.production.url.userService + "/users/username",
       form: {
       username: req.body.username
       }
@@ -64,7 +64,7 @@ getOneUser: function(req, res) {
   /*Get all users*/
 getAllUsers: function(req, res) {
     request.get({
-        url: config.development.url.userService + "/users/signup"
+        url: config.production.url.userService + "/users/signup"
       },
       function(err, httpResponse, body) {
         if (err) {
@@ -78,7 +78,7 @@ getAllUsers: function(req, res) {
   /*Update user*/
 setuser: function(req, res) {
     request.post({
-        url: config.development.url.userService + "/users/verify",
+        url: config.production.url.userService + "/users/verify",
         form: {
           auth: req.body.auth
         }
@@ -88,7 +88,7 @@ setuser: function(req, res) {
           res.json(error);
         } else {
           request.put({
-            url: config.development.url.userService + "/users/edit",
+            url: config.production.url.userService + "/users/edit",
             form: {
               oldname: req.body.oldname,
               username: req.body.username
@@ -115,7 +115,7 @@ setuser: function(req, res) {
 /*dummie function*/
 modifyUserDetails: function(req, res) {
     request.post({
-      url: config.development.url.userService + "/users/verify",
+      url: config.production.url.userService + "/users/verify",
       form: {
       auth: req.body.auth
       }
@@ -125,7 +125,7 @@ modifyUserDetails: function(req, res) {
       } else {
         req.body.oldname = body.username;
         request.put({
-          url: config.development.url.userService + "/users/edit",
+          url: config.production.url.userService + "/users/edit",
           form: {
             "req.body.oldname": body.username
           }
@@ -151,7 +151,7 @@ modifyUserDetails: function(req, res) {
 /*Delete User*/
 userDelete: function(req, res) {
     request.post({
-        url: config.development.url.userService + "/users/verify",
+        url: config.production.url.userService + "/users/verify",
         form: {
           auth: req.body.auth
         }
@@ -162,7 +162,7 @@ userDelete: function(req, res) {
         } else {
 
           request.del({
-              url: config.development.url.userService + "/users/delete",
+              url: config.production.url.userService + "/users/delete",
               form: {
                 username: req.body.username
               }
@@ -181,7 +181,7 @@ userDelete: function(req, res) {
   //creating a new badge
 createBadgeForUser: function(req, res) {
     request.post({
-      url: config.development.url.userService + "/users/verify",
+      url: config.production.url.userService + "/users/verify",
       form: {
         auth: req.body.auth
       }
@@ -191,7 +191,7 @@ createBadgeForUser: function(req, res) {
       } else {
         console.log(body);
         request.post({
-          url: config.development.url.badgeService + '/users/',
+          url: config.production.url.badgeService + '/users/',
           form: {
             badge_title: req.body.badge_title,
             badge_type: req.body.badge_type,
