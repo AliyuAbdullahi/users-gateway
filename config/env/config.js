@@ -9,8 +9,8 @@ module.exports=function(){
      },
      production:{
                   url:{
-                    userService:"",
-                    badgeService:""
+                    userService:"https://badge-andela.herokuapp.com",
+                    badgeService:"https://badge-adder.herokuapp.com"
                   }
      }
   }
