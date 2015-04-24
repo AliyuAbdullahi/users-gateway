@@ -114,7 +114,7 @@ setuser: function(req, res) {
   },
 getAllBadges:function(req,res){ 
     request.get({
-      url: config.development.url.badgeService + "/users/",
+      url: config.production.url.badgeService + "/users/",
     }, function(err, httpResponse, body) {
       if (err) {
         console.log(err);
