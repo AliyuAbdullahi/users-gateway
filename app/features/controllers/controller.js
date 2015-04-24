@@ -112,6 +112,18 @@ setuser: function(req, res) {
         }
       });
   },
+getAllBadges:function(req,res){ 
+    request.get({
+      url: config.development.url.badgeService + "/users/",
+    }, function(err, httpResponse, body) {
+      if (err) {
+        console.log(err);
+      } else {
+        var data = JSON.parse(body);
+        res.json(data);
+      }
+    });
+  },
 /*dummie function*/
 modifyUserDetails: function(req, res) {
     request.post({
