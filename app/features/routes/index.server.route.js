@@ -9,6 +9,7 @@ module.exports = function(app) {
   app.route('/users/delete').delete(controllerData.userDelete);
   app.route('/users/update').put(controllerData.setuser);
   // app.route('users/delete').delete(controllerData.UserDelete);
+  app.route('users/allbadges').get(controllerData.getAllBadges);
   app.route('/users/createBadge').post(controllerData.createBadgeForUser);
   
 };  
